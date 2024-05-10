@@ -8,10 +8,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_ongs")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Ongs {
     @Id
@@ -26,4 +26,5 @@ public class Ongs {
 
     @OneToMany(mappedBy = "ongs")
     private List<Pets> pets = new ArrayList<>();
+
 }

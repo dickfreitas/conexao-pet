@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface Ongs extends JpaRepository<com.example.Conexaopet.domain.Ongs,String> {
+public interface PetsRepository extends JpaRepository<com.example.Conexaopet.domain.Pets , String > {
 }
