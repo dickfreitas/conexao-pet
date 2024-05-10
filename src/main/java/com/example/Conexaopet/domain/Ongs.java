@@ -1,10 +1,10 @@
 package com.example.Conexaopet.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_ongs")
@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode(of = "id")
 public class Ongs {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -19,5 +20,10 @@ public class Ongs {
     private String corporate_name;
     private String email;
     private String contact;
-    private String address;
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    @OneToMany(mappedBy = "ongs")
+    private List<Pets> pets = new ArrayList<>();
 }

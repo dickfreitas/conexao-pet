@@ -1,10 +1,7 @@
 package com.example.Conexaopet.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name="tb_pets")
@@ -12,6 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode(of = "id")
 public class Pets {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -25,5 +23,12 @@ public class Pets {
     private String status;
 
 
+    @ManyToOne
+    @JoinColumn(name = "ongs_id")
+    private Ongs ongs;
+
+    @OneToOne
+    @JoinColumn(name = "tutor_id")
+    private Tutor tutor;
 
 }
