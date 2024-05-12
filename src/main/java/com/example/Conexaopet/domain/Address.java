@@ -1,5 +1,6 @@
 package com.example.Conexaopet.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,8 +31,9 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private Tutor tutor;
 
-    @OneToMany(mappedBy = "address")
-    private List<Ongs> ongs = new ArrayList<>();
-
+    @ManyToOne
+    @JoinColumn(name = "ongs_id")
+    @JsonIgnore
+    private Ongs ongs;
 
 }

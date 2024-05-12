@@ -20,9 +20,10 @@ public class Ongs {
     private String corporate_name;
     private String email;
     private String contact;
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    private String password;
+
+    @OneToMany(mappedBy = "ongs")
+    private List<Address> address = new ArrayList<>();
 
     @OneToMany(mappedBy = "ongs")
     private List<Pets> pets = new ArrayList<>();

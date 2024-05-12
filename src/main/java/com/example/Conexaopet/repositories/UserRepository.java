@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface Tutor extends JpaRepository<com.example.Conexaopet.domain.Tutor , String > {
+public interface UserRepository extends JpaRepository<com.example.Conexaopet.domain.User, String> {
 }

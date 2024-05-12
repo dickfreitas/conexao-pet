@@ -5,6 +5,8 @@ import com.example.Conexaopet.repositories.OngsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OngsService {
     @Autowired
@@ -12,6 +14,10 @@ public class OngsService {
 
     public Ongs insertOng(Ongs ong){
         return repository.save(ong);
+    }
+
+    public List<Ongs> findAll(){
+        return repository.findAll();
     }
 
 }

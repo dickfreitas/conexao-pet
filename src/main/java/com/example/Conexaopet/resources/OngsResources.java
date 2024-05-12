@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/ongs")
@@ -21,5 +22,12 @@ public class OngsResources {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ongSaved.getId()).toUri();
 
         return ResponseEntity.created(uri).body(ongSaved);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Ongs>> findAll(){
+        List<Ongs> list = service.findAll();
+
+        return  ResponseEntity.ok().body(list);
     }
 }
