@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/tutor")
@@ -38,6 +39,13 @@ public class TutorResources {
 
         return ResponseEntity.created(uri).body(petsSaved);
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Tutor>> getTutor(){
+        List<Tutor> list = service.findAll();
+
+        return ResponseEntity.ok().body(list);
     }
 
 }

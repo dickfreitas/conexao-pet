@@ -31,7 +31,7 @@ public class Pets {
     @JsonIgnore
     private Ongs ongs;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "tutor_id")
     @JsonIgnore
     private Tutor tutor;
