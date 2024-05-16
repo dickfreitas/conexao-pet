@@ -1,6 +1,8 @@
 package com.example.Conexaopet.resources;
 import com.example.Conexaopet.domain.Ongs;
+import com.example.Conexaopet.domain.Pets;
 import com.example.Conexaopet.services.OngsService;
+import com.example.Conexaopet.services.PetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ public class OngsResources {
     @Autowired
     private OngsService service;
 
+    @Autowired
+    private PetsService petsService;
+
     @PostMapping
     public ResponseEntity<Ongs> insertOng(@RequestBody Ongs obj){
         Ongs ongSaved = service.insertOng(obj);
@@ -29,5 +34,15 @@ public class OngsResources {
         List<Ongs> list = service.findAll();
 
         return  ResponseEntity.ok().body(list);
+    }
+
+    @PostMapping(value = "/pets/{id}")
+    public ResponseEntity<Pets> addPets(@RequestBody Pets pet , @PathVariable String id){
+        Pets petsSaved = petsService.insertPet(pet, id);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(petsSaved.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(petsSaved);
+
     }
 }
