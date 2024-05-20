@@ -1,6 +1,7 @@
 package com.example.Conexaopet.resources;
 
 import com.example.Conexaopet.domain.Address;
+import com.example.Conexaopet.dtos.UpdateAddressDTO;
 import com.example.Conexaopet.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,4 +25,13 @@ public class AddressResources {
 
 
     }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Address> updateAddress(@PathVariable String id , @RequestBody UpdateAddressDTO obj){
+         Address address = service.updateAddress(id , obj);
+
+        return ResponseEntity.ok().body(address);
+
+
+    }
+
 }

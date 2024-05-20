@@ -12,7 +12,10 @@ import com.example.Conexaopet.repositories.PetsRepository;
 import com.example.Conexaopet.repositories.TutorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PetsService {
@@ -72,5 +75,11 @@ public class PetsService {
         }catch (EntityNotFoundException e) {
             throw new EntityNotFoundException(e.getMessage());
         }
+    }
+
+    public ResponseEntity<List<Pets>> findAll() {
+       List<Pets> list = repository.findAll();
+
+        return ResponseEntity.ok().body(list);
     }
 }

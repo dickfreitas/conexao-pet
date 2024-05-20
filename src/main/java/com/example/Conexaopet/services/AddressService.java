@@ -2,11 +2,15 @@ package com.example.Conexaopet.services;
 
 import com.example.Conexaopet.domain.Address;
 import com.example.Conexaopet.domain.Ongs;
+import com.example.Conexaopet.domain.Tutor;
+import com.example.Conexaopet.dtos.UpdateAddressDTO;
 import com.example.Conexaopet.repositories.AddressRepository;
 import com.example.Conexaopet.repositories.OngsRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AddressService {
@@ -35,4 +39,25 @@ public class AddressService {
         }
 
     }
+
+    public Address updateAddress(String id , UpdateAddressDTO obj){
+        Address addressResponse = repository.findById(id).orElseThrow(()-> new RuntimeException("Endereço não encontrado"));
+
+        if(addressResponse == null){
+            throw new RuntimeException("Endereço não cadastrado");
+        }
+
+        obj.getCep().ifPresent(addressResponse::setCep);
+        obj.getState().ifPresent(addressResponse::setState);
+        obj.getNumber().ifPresent(addressResponse::setNumber);
+        obj.getNeighborhood().ifPresent(addressResponse::setNeighborhood);
+        obj.getPublic_place().ifPresent(addressResponse::setPublic_place);
+        obj.getCity().ifPresent(addressResponse::setCity);
+
+        repository.save(addressResponse);
+
+        return addressResponse;
+
+    }
+
 }
