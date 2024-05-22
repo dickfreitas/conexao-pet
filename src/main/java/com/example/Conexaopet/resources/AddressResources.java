@@ -16,15 +16,25 @@ public class AddressResources {
     @Autowired
     private AddressService service;
 
-    @PostMapping(value = "/{id}")
+    @PostMapping(value = "ongs/{id}")
     public ResponseEntity<Address> addAddressById(@PathVariable String id , @RequestBody Address obj){
-        Address address = service.addAddressById(id , obj);
+        Address address = service.saveAddressOngs(id , obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(address.getId()).toUri();
 
         return ResponseEntity.created(uri).body(address);
 
 
     }
+    @PostMapping(value = "tutor/{id}")
+    public ResponseEntity<Address> addAddressTutor(@PathVariable String id , @RequestBody Address obj){
+        Address address = service.saveAddressTutor(id , obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(address.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(address);
+
+
+    }
+
     @PutMapping(value = "/{id}")
     public ResponseEntity<Address> updateAddress(@PathVariable String id , @RequestBody UpdateAddressDTO obj){
          Address address = service.updateAddress(id , obj);

@@ -29,6 +29,7 @@ public class Address {
     private User user;
 
     @OneToOne(mappedBy = "address")
+    @JsonIgnore
     private Tutor tutor;
 
     @ManyToOne
