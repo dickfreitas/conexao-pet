@@ -6,6 +6,8 @@ import com.example.Conexaopet.services.OngsService;
 import com.example.Conexaopet.services.PetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -24,19 +26,13 @@ public class OngsResources {
 
     @PostMapping
     public ResponseEntity<Ongs> insertOng(@RequestBody Ongs obj){
-        Ongs ongSaved = service.insertOng(obj);
+        String password = new BCryptPasswordEncoder().encode(obj.getPassword());
+        Ongs user  = new Ongs (obj.getCorporate_name(), obj.getEmail() , obj.getContact() , password);
+        Ongs ongSaved = service.insertOng(user);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ongSaved.getId()).toUri();
 
         return ResponseEntity.created(uri).body(ongSaved);
     }
-
-    @GetMapping
-    public ResponseEntity<List<Ongs>> findAll(){
-        List<Ongs> list = service.findAll();
-
-        return  ResponseEntity.ok().body(list);
-    }
-
     @PostMapping(value = "/pets/{id}")
     public ResponseEntity<Pets> addPets(@RequestBody ResponsePetsDTO pet , @PathVariable String id ){
         Pets petsSaved = petsService.insertPet(pet, id);
@@ -46,4 +42,15 @@ public class OngsResources {
         return ResponseEntity.created(uri).body(petsSaved);
 
     }
+
+    @GetMapping
+    public ResponseEntity<List<Ongs>> findAll(){
+        List<Ongs> list = service.findAll();
+
+        return  ResponseEntity.ok().body(list);
+    }
+
+
+
+
 }
